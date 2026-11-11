@@ -9,6 +9,7 @@ def test_defaults():
     s = load_settings({"AZURE_SUBSCRIPTION_ID": SUB})
     assert s.lookback_days == 7
     assert s.cpu_idle_threshold_pct == 5.0
+    assert s.cpu_max_threshold_pct == 30.0
     assert s.teams_webhook_url is None
 
 
@@ -41,3 +42,14 @@ def test_error_does_not_leak_input():
     with pytest.raises(ConfigError) as ei:
         load_settings({"AZURE_SUBSCRIPTION_ID": SUB, "CPU_IDLE_THRESHOLD_PCT": "SECRET999"})
     assert "SECRET999" not in str(ei.value)
+
+
+def test_max_cpu_threshold_override_and_validation():
+    assert (
+        load_settings(
+            {"AZURE_SUBSCRIPTION_ID": SUB, "CPU_MAX_THRESHOLD_PCT": "40"}
+        ).cpu_max_threshold_pct
+        == 40.0
+    )
+    with pytest.raises(ConfigError, match="cpu_max_threshold_pct"):
+        load_settings({"AZURE_SUBSCRIPTION_ID": SUB, "CPU_MAX_THRESHOLD_PCT": "0"})

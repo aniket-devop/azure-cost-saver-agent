@@ -19,6 +19,7 @@ class Settings(BaseModel):
     subscription_id: str
     lookback_days: int = Field(default=7, ge=1, le=90)
     cpu_idle_threshold_pct: float = Field(default=5.0, gt=0, le=100)
+    cpu_max_threshold_pct: float = Field(default=30.0, gt=0, le=100)
     teams_webhook_url: SecretStr | None = None  # SecretStr: redacted in repr/logs
 
 
@@ -37,6 +38,8 @@ def load_settings(env: Mapping[str, str] | None = None) -> Settings:
         raw["lookback_days"] = v
     if v := env.get("CPU_IDLE_THRESHOLD_PCT"):
         raw["cpu_idle_threshold_pct"] = v
+    if v := env.get("CPU_MAX_THRESHOLD_PCT"):
+        raw["cpu_max_threshold_pct"] = v
     if v := env.get("TEAMS_WEBHOOK_URL"):
         raw["teams_webhook_url"] = v
     try:
