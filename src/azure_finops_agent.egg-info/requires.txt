@@ -1,4 +1,9 @@
 pydantic<3,>=2.6
+azure-core<2,>=1.30
+azure-identity<2,>=1.17
+azure-mgmt-resourcegraph<9,>=8
+azure-mgmt-monitor<8,>=7
+azure-mgmt-costmanagement<6,>=5
 
 [dev]
 pytest>=8

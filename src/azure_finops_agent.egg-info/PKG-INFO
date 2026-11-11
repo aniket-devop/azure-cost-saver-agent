@@ -4,6 +4,11 @@ Version: 0.1.0
 Summary: Explainable, read-only Azure FinOps agent (LangGraph + MCP).
 Requires-Python: >=3.11
 Requires-Dist: pydantic<3,>=2.6
+Requires-Dist: azure-core<2,>=1.30
+Requires-Dist: azure-identity<2,>=1.17
+Requires-Dist: azure-mgmt-resourcegraph<9,>=8
+Requires-Dist: azure-mgmt-monitor<8,>=7
+Requires-Dist: azure-mgmt-costmanagement<6,>=5
 Provides-Extra: dev
 Requires-Dist: pytest>=8; extra == "dev"
 Requires-Dist: ruff>=0.5; extra == "dev"
