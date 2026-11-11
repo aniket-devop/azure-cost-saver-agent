@@ -1,0 +1,458 @@
+{
+  "assumptions": [
+    "Estimated monthly savings = the resource's trailing actual cost from Azure Cost Management, scaled to a 30-day month. It is an estimate of what removing the resource could save, not an amount that has been saved.",
+    "Savings are estimated only where removing the resource removes its cost (unattached disks and public IPs). Potential findings carry no savings figure because resizing or deallocating saves only part of a VM's cost.",
+    "A resource missing from the cost data is reported as Unknown, never as zero (cost data can lag 24-48 hours).",
+    "Amounts are in the billing currency reported by Azure. No currency conversion is done and different currencies are never added together.",
+    "Confirmed means the state was read directly from Azure (for example, a disk with no owner). Potential means it was inferred from metrics and needs review by the resource owner.",
+    "Evidence timestamps record when the data was collected for this report."
+  ],
+  "cost_summary": {
+    "currency": "INR",
+    "end_date": "2026-11-11",
+    "start_date": "2026-11-04",
+    "total": "18654.32"
+  },
+  "errors": [
+    "underutilized_vm: metrics unavailable for /subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Compute/virtualMachines/vm-metrics-fail-03 (monitor metrics: Throttled)"
+  ],
+  "findings": [
+    {
+      "category": "unattached_disk",
+      "confidence": "high",
+      "evidence": [
+        {
+          "metric": "diskState",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Unattached",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "managedBy",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(none)",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "sku",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "StandardSSD_LRS",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "sizeGb",
+          "source": "resource-graph",
+          "unit": "GB",
+          "value": 128.0,
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "timeCreated",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "2026-10-30T10:00:00Z",
+          "window_end": null,
+          "window_start": null
+        }
+      ],
+      "evidence_timestamp": "2026-11-11T12:00:00Z",
+      "monthly_cost": {
+        "amount": null,
+        "basis": "unavailable",
+        "currency": null
+      },
+      "name": "old-backup-disk",
+      "reason": "Managed disk is not attached to any VM (StandardSSD_LRS, 128 GB).",
+      "recommended_action": "Confirm the disk is not needed (check snapshots/backups), then delete it or snapshot and delete it. This tool never modifies resources.",
+      "region": "centralindia",
+      "resource_group": "rg-finops-demo",
+      "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Compute/disks/old-backup-disk",
+      "resource_type": "microsoft.compute/disks",
+      "status": "confirmed",
+      "subscription_id": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "category": "unattached_disk",
+      "confidence": "high",
+      "evidence": [
+        {
+          "metric": "diskState",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Unattached",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "managedBy",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(none)",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "sku",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Premium_LRS",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "sizeGb",
+          "source": "resource-graph",
+          "unit": "GB",
+          "value": 256.0,
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "timeCreated",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "2026-03-02T08:15:00Z",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "actual_cost_2026-10-12_to_2026-11-11",
+          "source": "cost-management",
+          "unit": "INR",
+          "value": 842.4,
+          "window_end": null,
+          "window_start": null
+        }
+      ],
+      "evidence_timestamp": "2026-11-11T12:00:00Z",
+      "monthly_cost": {
+        "amount": "842.40",
+        "basis": "actual_cost",
+        "currency": "INR"
+      },
+      "name": "orphan-data-disk-01",
+      "reason": "Managed disk is not attached to any VM (Premium_LRS, 256 GB).",
+      "recommended_action": "Confirm the disk is not needed (check snapshots/backups), then delete it or snapshot and delete it. This tool never modifies resources.",
+      "region": "centralindia",
+      "resource_group": "rg-finops-demo",
+      "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Compute/disks/orphan-data-disk-01",
+      "resource_type": "microsoft.compute/disks",
+      "status": "confirmed",
+      "subscription_id": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "category": "unattached_public_ip",
+      "confidence": "high",
+      "evidence": [
+        {
+          "metric": "ipConfiguration",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(none)",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "natGateway",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(none)",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "sku",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Standard",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "allocationMethod",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Static",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "ipAddress",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "20.198.10.25",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "actual_cost_2026-10-12_to_2026-11-11",
+          "source": "cost-management",
+          "unit": "INR",
+          "value": 252.1,
+          "window_end": null,
+          "window_start": null
+        }
+      ],
+      "evidence_timestamp": "2026-11-11T12:00:00Z",
+      "monthly_cost": {
+        "amount": "252.10",
+        "basis": "actual_cost",
+        "currency": "INR"
+      },
+      "name": "pip-legacy-gateway",
+      "reason": "Public IP is not associated with any NIC, load balancer or NAT gateway (Standard, Static).",
+      "recommended_action": "Confirm nothing (DNS records, allow-lists) depends on this address, then delete it. This tool never modifies resources.",
+      "region": "centralindia",
+      "resource_group": "rg-finops-demo",
+      "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Network/publicIPAddresses/pip-legacy-gateway",
+      "resource_type": "microsoft.network/publicipaddresses",
+      "status": "confirmed",
+      "subscription_id": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "category": "unattached_public_ip",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "metric": "ipConfiguration",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(none)",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "natGateway",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(none)",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "sku",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Basic",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "allocationMethod",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Dynamic",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "ipAddress",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "(not allocated)",
+          "window_end": null,
+          "window_start": null
+        }
+      ],
+      "evidence_timestamp": "2026-11-11T12:00:00Z",
+      "monthly_cost": {
+        "amount": null,
+        "basis": "unavailable",
+        "currency": null
+      },
+      "name": "pip-unused-dynamic",
+      "reason": "Public IP is not associated with any NIC, load balancer or NAT gateway (Basic, Dynamic).",
+      "recommended_action": "Confirm nothing (DNS records, allow-lists) depends on this address, then delete it. This tool never modifies resources.",
+      "region": "centralindia",
+      "resource_group": "rg-finops-demo",
+      "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Network/publicIPAddresses/pip-unused-dynamic",
+      "resource_type": "microsoft.network/publicipaddresses",
+      "status": "confirmed",
+      "subscription_id": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "category": "underutilized_vm",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "metric": "cpu_average_pct",
+          "source": "azure-monitor",
+          "unit": "%",
+          "value": 1.84,
+          "window_end": "2026-11-11T12:00:00Z",
+          "window_start": "2026-11-04T12:00:00Z"
+        },
+        {
+          "metric": "cpu_max_pct",
+          "source": "azure-monitor",
+          "unit": "%",
+          "value": 12.4,
+          "window_end": "2026-11-11T12:00:00Z",
+          "window_start": "2026-11-04T12:00:00Z"
+        },
+        {
+          "metric": "hourly_datapoints",
+          "source": "azure-monitor",
+          "unit": "of 168 expected",
+          "value": 168.0,
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "vmSize",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Standard_D4s_v5",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "powerState",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "PowerState/running",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "actual_cost_2026-10-12_to_2026-11-11",
+          "source": "cost-management",
+          "unit": "INR",
+          "value": 3120.55,
+          "window_end": null,
+          "window_start": null
+        }
+      ],
+      "evidence_timestamp": "2026-11-11T12:00:00Z",
+      "monthly_cost": {
+        "amount": null,
+        "basis": "unavailable",
+        "currency": null
+      },
+      "name": "vm-dev-build-01",
+      "reason": "CPU averaged 1.8% (threshold 5.0%) and peaked at 12.4% (threshold 30.0%) over 7 days.",
+      "recommended_action": "Review the workload with its owner. If confirmed under-used, consider resizing or deallocating. Memory, network and disk I/O were not evaluated. This tool never modifies resources.",
+      "region": "centralindia",
+      "resource_group": "rg-finops-demo",
+      "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Compute/virtualMachines/vm-dev-build-01",
+      "resource_type": "microsoft.compute/virtualmachines",
+      "status": "potential",
+      "subscription_id": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "category": "underutilized_vm",
+      "confidence": "low",
+      "evidence": [
+        {
+          "metric": "cpu_average_pct",
+          "source": "azure-monitor",
+          "unit": "%",
+          "value": 3.92,
+          "window_end": "2026-11-11T12:00:00Z",
+          "window_start": "2026-11-04T12:00:00Z"
+        },
+        {
+          "metric": "cpu_max_pct",
+          "source": "azure-monitor",
+          "unit": "%",
+          "value": 22.0,
+          "window_end": "2026-11-11T12:00:00Z",
+          "window_start": "2026-11-04T12:00:00Z"
+        },
+        {
+          "metric": "hourly_datapoints",
+          "source": "azure-monitor",
+          "unit": "of 168 expected",
+          "value": 150.0,
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "vmSize",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "Standard_D2s_v5",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "powerState",
+          "source": "resource-graph",
+          "unit": null,
+          "value": "PowerState/running",
+          "window_end": null,
+          "window_start": null
+        },
+        {
+          "metric": "actual_cost_2026-10-12_to_2026-11-11",
+          "source": "cost-management",
+          "unit": "INR",
+          "value": 1480.2,
+          "window_end": null,
+          "window_start": null
+        }
+      ],
+      "evidence_timestamp": "2026-11-11T12:00:00Z",
+      "monthly_cost": {
+        "amount": null,
+        "basis": "unavailable",
+        "currency": null
+      },
+      "name": "vm-test-api-02",
+      "reason": "CPU averaged 3.9% (threshold 5.0%) and peaked at 22.0% (threshold 30.0%) over 7 days.",
+      "recommended_action": "Review the workload with its owner. If confirmed under-used, consider resizing or deallocating. Memory, network and disk I/O were not evaluated. This tool never modifies resources.",
+      "region": "centralindia",
+      "resource_group": "rg-finops-demo",
+      "resource_id": "/subscriptions/11111111-1111-1111-1111-111111111111/resourceGroups/rg-finops-demo/providers/Microsoft.Compute/virtualMachines/vm-test-api-02",
+      "resource_type": "microsoft.compute/virtualmachines",
+      "status": "potential",
+      "subscription_id": "11111111-1111-1111-1111-111111111111"
+    }
+  ],
+  "generated_at": "2026-11-11T12:00:00Z",
+  "limitations": [
+    "Public IPs: billing depends on SKU and allocation; savings are shown only when Cost Management has charges for the resource.",
+    "Unattached disks: how long a disk has been detached is not available from Resource Graph; a recently detached disk may be intentional.",
+    "VM detection uses CPU only (Percentage CPU, hourly). Memory, network and disk I/O are not evaluated, so findings are potential, not confirmed."
+  ],
+  "report_status": "partial",
+  "schema_version": "1.0",
+  "subscription_id": "11111111-1111-1111-1111-111111111111",
+  "summary": {
+    "confirmed_findings": 4,
+    "confirmed_monthly_savings_estimate": [
+      {
+        "amount": "1094.50",
+        "currency": "INR",
+        "findings": 2
+      }
+    ],
+    "findings_by_category": {
+      "unattached_disk": {
+        "confirmed": 2,
+        "potential": 0
+      },
+      "unattached_public_ip": {
+        "confirmed": 2,
+        "potential": 0
+      },
+      "underutilized_vm": {
+        "confirmed": 0,
+        "potential": 2
+      }
+    },
+    "potential_findings": 2,
+    "potential_monthly_savings_estimate": [],
+    "potential_without_estimate": 2,
+    "status": "partial",
+    "total_findings": 6,
+    "unknown_cost_findings": 2
+  }
+}
