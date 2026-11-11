@@ -1,0 +1,11 @@
+azure-functions
+azure-identity
+azure-mgmt-costmanagement
+azure-mgmt-resourcegraph
+azure-mgmt-monitor
+openai
+requests
+mcp
+langgraph
+langchain-openai
+langchain-mcp-adapters
