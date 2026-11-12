@@ -43,8 +43,12 @@ Write-Host "PowerShell $($PSVersionTable.PSVersion) on $(if ($OnWindows) { 'Wind
 $pythonCmd = if ($OnWindows) { 'python' } else { 'python3' }
 $sysPython = Get-Command $pythonCmd -ErrorAction SilentlyContinue
 if (-not $sysPython) { throw "Python 3.11+ was not found on PATH." }
-$ver = Invoke-Native $sysPython.Source @('-c', 'import sys; print("%d.%d" % sys.version_info[:2])')
-Write-Check ([version]$ver.Output -ge [version]'3.11') "Python $($ver.Output) is 3.11 or newer"
+# NOTE: Windows PowerShell 5.1 strips double quotes from arguments passed to native programs,
+# so python -c snippets below must not contain any double quote.
+$ver = Invoke-Native $sysPython.Source @('-c', 'import sys; print(sys.version_info.major, sys.version_info.minor)')
+$verText = (($ver.Output -split '\s+') | Where-Object { $_ -ne '' }) -join '.'
+$verOk = ($ver.ExitCode -eq 0) -and ($verText -match '^\d+\.\d+$') -and ([version]$verText -ge [version]'3.11')
+Write-Check $verOk "Python $verText is 3.11 or newer"
 
 $venvPython = if ($OnWindows) { Join-Path $RepoRoot '.venv\Scripts\python.exe' } else { Join-Path $RepoRoot '.venv/bin/python' }
 $venvCli = if ($OnWindows) { Join-Path $RepoRoot '.venv\Scripts\azure-finops.exe' } else { Join-Path $RepoRoot '.venv/bin/azure-finops' }
