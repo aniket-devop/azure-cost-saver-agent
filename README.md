@@ -1,3 +1,8 @@
+> **Status (Phase 5):** the flat modules in the repository root (`agent.py`, `cost_fetcher.py`,
+> `idle_finder.py`, `mcp_server.py`, `summarizer.py`, `teams_sender.py`, `function_app.py`) are
+> **deprecated** and kept only temporarily. Use the `azure_finops_agent` package:
+> `azure-finops run` (read-only analysis) or `azure-finops demo` (offline). See `PHASE5_README.md`.
+
 # Azure Cost Saver Agent
 
 A LangGraph agent that calls MCP tools to find wasted Azure resources and writes a short cost report, optionally posted to Microsoft Teams. Read-only: it never deletes or stops anything.

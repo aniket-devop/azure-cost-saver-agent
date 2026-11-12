@@ -9,3 +9,7 @@ __pycache__/
 build/
 dist/
 *.zip
+
+# Phase 5 CLI output
+out/
+out-demo/

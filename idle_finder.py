@@ -1,4 +1,19 @@
-﻿import os
+﻿"""DEPRECATED (Phase 5): legacy module kept temporarily; do not use in new code.
+
+Superseded by the azure_finops_agent package (run: azure-finops run). The new LangGraph
+workflow never imports this module. Known problems: hardcoded or guessed figures and no
+partial-result handling. Scheduled for removal once the Azure Functions entry point is
+migrated.
+"""
+import warnings
+
+warnings.warn(
+    "idle_finder.py is deprecated; use the azure_finops_agent package (azure-finops run)",
+    DeprecationWarning,
+    stacklevel=2,
+)
+
+import os
 from datetime import datetime, timedelta, timezone
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resourcegraph import ResourceGraphClient

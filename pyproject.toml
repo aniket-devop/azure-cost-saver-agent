@@ -14,10 +14,15 @@ dependencies = [
   "azure-mgmt-resourcegraph>=8,<9",
   "azure-mgmt-monitor>=7,<8",
   "azure-mgmt-costmanagement>=5,<6",
+  "langgraph>=1.2,<2",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.5", "mypy>=1.10"]
+llm = ["openai>=1.40,<3"]  # only for `azure-finops run --explain`
+dev = ["pytest>=8", "ruff>=0.5", "mypy>=1.10", "openai>=1.40,<3"]
+
+[project.scripts]
+azure-finops = "azure_finops_agent.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -45,3 +50,7 @@ select = ["E", "F", "I", "UP", "B", "S"]
 strict = true
 files = ["src"]
 plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["openai", "openai.*"]
+ignore_missing_imports = true  # optional dependency (the "llm" extra)
