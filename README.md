@@ -1,3 +1,5 @@
+![CI](https://github.com/aniket-devop/azure-cost-saver-agent/actions/workflows/ci.yml/badge.svg)
+
 > **Status (Phase 5):** the flat modules in the repository root (`agent.py`, `cost_fetcher.py`,
 > `idle_finder.py`, `mcp_server.py`, `summarizer.py`, `teams_sender.py`, `function_app.py`) are
 > **deprecated** and kept only temporarily. Use the `azure_finops_agent` package:
