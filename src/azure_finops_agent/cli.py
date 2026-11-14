@@ -147,6 +147,14 @@ def _run_real(
         explainer=explainer,
         notifier=notifier,
     )
+    if clients.warm_up is not None:
+        emit("Checking Azure login (can take ~30s if the Azure CLI is slow)...")
+        try:
+            clients.warm_up()
+        except Exception as exc:
+            raise ConfigError(
+                f"Azure login failed ({type(exc).__name__}). Run 'az login' and try again."
+            ) from None
     emit(f"Analysing subscription {settings.subscription_id} (read-only)")
     result = run_workflow(deps)
     _print_result(result, emit)
